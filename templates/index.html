@@ -1,0 +1,80 @@
+<html>
+	<head>
+		<title>Transactions API</title>
+    <!--Load stylesheet-->
+		<link rel="stylesheet" type="text/css" href="static/stylesheet.css"/>
+		<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.11.1/jquery.min.js" crossorigin="anonymous"/>
+		<!-- Latest compiled and minified JavaScript -->
+		<script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+		<script type="text/javascript" src="{{ url_for('static', filename='script.js') }}"></script>
+	</head>
+	<body>
+		<div class="jumbotron text-center">
+
+		<h2>Transactions API</h2>
+		<br>
+		<span id="search">Search transaction by id: </span>
+		<!--Search bar-->
+		<input type="text" id="searchBar" style="width:200;">
+		<!--Search button-->
+		<button id="searchButton" type="button">Search</button>
+		</div>
+		<ul id="data"></ul>
+        
+        <!--Add new transaction button-->
+        <button id="addButton" onclick="document.getElementById('id01').style.display='block'">+</button>
+
+        <div id="id01" class="modal">
+          <span onclick="document.getElementById('id01').style.display='none'" class="close" title="Close Modal">×</span>
+          <!--Add new transaction form-->
+          <form method='POST' action="/addNewTransaction" class="modal-content animate" action="/action_page.php">
+            <div class="container">
+              <h2>Add new transaction</h2> <!--Header-->
+
+              <!--Labels and input boxes-->
+              <label><b>Transaction amount</b></label><br>
+              <!--Example currency codes-->
+              <select name="currency_code" required>
+                <option value="" SELECTED="YES">Select Currency</option>
+                <option value="AUD">Australian Dollar</option>
+                <option value="CAD">Canadian Dollar</option>
+                <option value="EUR">Euro</option>
+                <option value="HKD">Hong Kong Dollar</option>
+                <option value="JPY">Japanese Yen</option>
+                <option value="NOK">Norwegian Krone</option>
+                <option value="NZD">New Zealand Dollar</option>
+                <option value="PHP">Philippine Peso</option>
+                <option value="PLN">Polish Zloty</option>
+                <option value="GBP">Pound Sterling</option>
+                <option value="SGD">Singapore Dollar</option>
+                <option value="SEK">Swedish Krona</option>
+                <option value="CHF">Swiss Franc</option>
+                <option value="USD">U.S. Dollar</option>
+              </select> 
+              <input id="amountInput" type="number" step="0.01" placeholder="Enter transaction amount" name="amount" required> <br> <br>
+
+              <label><b>Transaction date</b></label><br>
+              <input type="date" placeholder="Enter transaction date" name="date" required> <br> <br>
+
+              <label><b>Merchant</b></label><br>
+              <input type="text" maxlength="20" placeholder="Enter the name of Merchant" name="merchant" required> <br> <br>
+
+              <label><b>Description</b></label><br>
+              <input type="text" maxlength="100" placeholder="Description" name="description"> <br> <br>
+              <br>
+
+              <div class="clearfix">
+                <button id='cancelButton' type="button" onclick="document.getElementById('id01').style.display='none'" class="cancelbtn">Cancel</button>
+                <button id='submitButton' type="submit" class="signupbtn">Add new transaction</button>
+              </div>
+            </div>
+          </form>
+        </div>
+
+        <p id= "results"> </p>
+        {% if result %}
+           <pre>{{ result }}</pre>
+        {% endif %}
+   </body>
+</html>
